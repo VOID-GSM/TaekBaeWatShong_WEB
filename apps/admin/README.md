@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Driver Google OAuth
+
+Configure the public Google OAuth application values in the admin environment:
+
+```env
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=
+NEXT_PUBLIC_GOOGLE_REDIRECT_URI=
+```
+
+Call `startDriverLogin()` or `startDriverSignup()` from the login or signup action. On the configured redirect page, await `completeDriverOAuth()` once: it validates the OAuth state, sends the authorization code to the backend (`/auth/google/login` or `/auth/google/signup`), and stores the returned app tokens in cookies for the shared API client. The backend exchanges the code with Google, so no Google client secret belongs in this frontend app.

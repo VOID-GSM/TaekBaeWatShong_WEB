@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## DataGSM login
+
+Configure the public OAuth application values in the client environment:
+
+```env
+NEXT_PUBLIC_DATAGSM_CLIENT_ID=
+NEXT_PUBLIC_DATAGSM_REDIRECT_URI=
+```
+
+Students and teachers share one flow; DataGSM decides which one the account is. Call `startDataGsmLogin()` from the login action (authorization code + PKCE). On the configured redirect page, await `completeDataGsmLogin()` once: it validates the OAuth state, sends `code`, `codeVerifier`, and `redirectUri` to the backend (`/auth/login`), and stores the returned app tokens in cookies for the shared API client. The result's `role` is `STUDENT` or `TEACHER`.
